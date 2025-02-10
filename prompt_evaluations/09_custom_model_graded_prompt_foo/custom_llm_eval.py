@@ -2,14 +2,15 @@ import anthropic
 import os
 import json
 
+
 def llm_eval(summary, article):
     """
     Evaluate summary using an LLM (Claude).
-    
+
     Args:
     summary (str): The summary to evaluate.
     article (str): The original text that was summarized.
-    
+
     Returns:
     bool: True if the average score is above the threshold, False otherwise.
     """
@@ -111,38 +112,29 @@ def llm_eval(summary, article):
     
     Summary to Evaluate: <summary>{summary}</summary>
     """
-    
+
     response = client.messages.create(
         model="claude-3-5-sonnet-20240620",
         max_tokens=1000,
         temperature=0,
         messages=[
-            {
-                "role": "user",
-                "content": prompt
-            },
-            {
-                "role": "assistant",
-                "content": "<json>" 
-            }
+            {"role": "user", "content": prompt},
+            {"role": "assistant", "content": "<json>"},
         ],
-        stop_sequences=["</json>"]
+        stop_sequences=["</json>"],
     )
-    
+
     evaluation = json.loads(response.content[0].text)
     # Filter out non-numeric values and calculate the average
-    numeric_values = [value for key, value in evaluation.items() if isinstance(value, (int, float))]
+    numeric_values = [
+        value for key, value in evaluation.items() if isinstance(value, (int, float))
+    ]
     avg_score = sum(numeric_values) / len(numeric_values)
     # Return the average score and the overall model response
     return avg_score, response.content[0].text
 
-def get_assert(output: str, context, threshold=4.5):
-    article = context['vars']['article']
-    score, evaluation = llm_eval(output, article )
-    return {
-        "pass": score >= threshold,
-        "score": score,
-        "reason": evaluation
-    }
-    
 
+def get_assert(output: str, context, threshold=4.5):
+    article = context["vars"]["article"]
+    score, evaluation = llm_eval(output, article)
+    return {"pass": score >= threshold, "score": score, "reason": evaluation}

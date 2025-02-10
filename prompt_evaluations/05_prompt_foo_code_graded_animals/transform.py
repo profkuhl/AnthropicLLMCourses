@@ -6,4 +6,3 @@ def get_transform(output, context):
             print(f"Error in get_transform: {e}")
             return output
     return output
-

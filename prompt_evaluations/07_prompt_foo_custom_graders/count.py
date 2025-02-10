@@ -1,9 +1,10 @@
 import re
 
+
 def get_assert(output, context):
     topic = context["vars"]["topic"]
     goal_count = int(context["vars"]["count"])
-    pattern = fr'(^|\s)\b{re.escape(topic)}\b'
+    pattern = rf"(^|\s)\b{re.escape(topic)}\b"
 
     actual_count = len(re.findall(pattern, output.lower()))
 

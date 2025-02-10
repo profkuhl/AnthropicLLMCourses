@@ -4,7 +4,7 @@ You can often get Claude to do what you want simply by asking."""
 exercise_1_2_hint = """The grading function in this exercise is looking for answers that contain "soo" or "giggles".
 There are many ways to solve this, just by asking!"""
 
-exercise_2_1_hint ="""The grading function in this exercise is looking for any answer that includes the word "hola".
+exercise_2_1_hint = """The grading function in this exercise is looking for any answer that includes the word "hola".
 Ask Claude to reply in Spanish like you would when speaking with a human. It's that simple!"""
 
 exercise_2_2_hint = """The grading function in this exercise is looking for EXACTLY "Michael Jordan".
